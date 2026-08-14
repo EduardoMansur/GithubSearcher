@@ -39,7 +39,7 @@ final class RepositoryDetailViewModel: RepositoryDetailViewModelType {
         description = repository.description ?? "none"
         avatarURL = URL(string: repository.owner.avatarURL)
         stars = "\(repository.stars)"
-        forked = "(\(repository.forks))"
+        forked = "\(repository.forks)"
         if let lastUpdated = repository.lastUpdated {
             self.lastUpdated = (try? Date(lastUpdated, strategy: .iso8601).formatted(.relative(presentation: .named))) ?? "never"
         } else {

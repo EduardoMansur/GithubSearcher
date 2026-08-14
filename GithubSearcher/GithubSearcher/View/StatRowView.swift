@@ -24,12 +24,12 @@ struct StatRowView: View {
                 
                 Text(title)
                     .font(.system(size: 16))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
             }
             Spacer()
             Text(value)
                 .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
         }
     }
 }

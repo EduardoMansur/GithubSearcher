@@ -51,7 +51,7 @@ struct RepositoryDetailView<ViewModel: RepositoryDetailViewModelType>: View {
             
             Text(viewModel.title)
                 .font(.system(size: 26, weight: .bold))
-                .foregroundColor(.black)
+                .foregroundStyle(.primary)
             
             Spacer()
         }
@@ -67,7 +67,7 @@ struct RepositoryDetailView<ViewModel: RepositoryDetailViewModelType>: View {
                 Text(viewModel.description)
             }
             .font(.system(size: 15))
-            .foregroundColor(.gray)
+            .foregroundStyle(.secondary)
             .lineSpacing(4)
         }
     }
