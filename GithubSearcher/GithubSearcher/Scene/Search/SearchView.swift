@@ -16,11 +16,12 @@ struct SearchView<ViewModel: SearchViewModelType>: View {
         
     }
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List(viewModel.searchItems) { item in
+            SearchResultCell(viewModel: SearchResultCellViewModel(githubItem: item))
+        }
+        .searchable(text: $viewModel.searchText)
+        .onChange(of: viewModel.searchText) { _, newValue in
+            viewModel.search(text: newValue)
         }
         .padding()
     }

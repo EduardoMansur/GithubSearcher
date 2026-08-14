@@ -9,13 +9,22 @@ import Observation
 
 protocol SearchViewModelType: Observable {
     var searchText: String { get set }
+    var searchItems: [GithubSearchItem] { get set }
+    
+    func search(text: String)
+    
 }
 
 final class SearchViewModel: SearchViewModelType {
     var searchText: String
+    var searchItems: [GithubSearchItem] = []
     
-    init(searchText: String = "") {
+    init(searchText: String = "", initialSearchItems: [GithubSearchItem] = []) {
         self.searchText = searchText
+        self.searchItems = initialSearchItems
     }
     
+    func search(text: String) {
+        
+    }
 }
