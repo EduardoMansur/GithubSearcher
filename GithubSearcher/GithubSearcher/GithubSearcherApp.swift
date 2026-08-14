@@ -13,7 +13,18 @@ struct GithubSearcherApp: App {
         WindowGroup {
             NavigationStack {
                 SearchView(viewModel: SearchViewModel(repository: SearchResultRepository()))
+                    .navigationTitle("Search")
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .details(let repo):
+                            RepositoryDetailView(viewModel: RepositoryDetailViewModel(repo: repo))
+                        }
+                    }
             }
         }
     }
+}
+
+enum Route: Hashable {
+    case details(repo: GithubSearchItem)
 }

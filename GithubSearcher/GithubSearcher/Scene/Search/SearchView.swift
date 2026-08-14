@@ -42,7 +42,9 @@ struct SearchView<ViewModel: SearchViewModelType>: View {
                 noResultMessage()
             case .loaded:
                 ForEach(viewModel.searchItems) { item in
-                    SearchResultCell(viewModel: SearchResultCellViewModel(githubItem: item))
+                    NavigationLink(value: Route.details(repo: item)) {
+                        SearchResultCell(viewModel: SearchResultCellViewModel(githubItem: item))
+                    }
                 }
             }
         }
