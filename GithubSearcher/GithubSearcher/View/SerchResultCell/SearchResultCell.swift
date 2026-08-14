@@ -7,8 +7,11 @@
 
 import SwiftUI
 struct SearchResultCell<ViewModel: SearchResultCellViewModel>: View {
-    
     @State var viewModel: ViewModel
+    
+    struct Layout {
+        static var imageSize: CGFloat { 50 }
+    }
     
     init(viewModel: ViewModel) {
         self._viewModel = State(wrappedValue: viewModel)
@@ -40,6 +43,7 @@ struct SearchResultCell<ViewModel: SearchResultCellViewModel>: View {
         }
         .clipShape(Circle())
         .clipped()
+        .frame(width: Layout.imageSize, height: Layout.imageSize)
         .padding()
     }
     

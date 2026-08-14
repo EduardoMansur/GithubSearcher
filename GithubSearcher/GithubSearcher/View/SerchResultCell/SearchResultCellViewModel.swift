@@ -10,7 +10,7 @@ import Observation
 
 final class SearchResultCellViewModel: SearchResultCellViewModelType {
     let repositoryName: String
-    let description: String?
+    let description: String
     let numberOfStars: String
     let ownerAvatar: URL?
     
@@ -23,7 +23,7 @@ final class SearchResultCellViewModel: SearchResultCellViewModelType {
     
     init(githubItem: GithubSearchItem) {
         self.repositoryName = githubItem.name
-        self.description = githubItem.description
+        self.description = githubItem.description ?? ""
         self.numberOfStars = "\(githubItem.stars)"
         self.ownerAvatar = URL(string: githubItem.owner.avatarURL)
     }
@@ -31,7 +31,7 @@ final class SearchResultCellViewModel: SearchResultCellViewModelType {
 
 protocol SearchResultCellViewModelType: Observable  {
     var repositoryName: String { get }
-    var description: String? { get }
+    var description: String { get }
     var numberOfStars: String { get }
     var ownerAvatar: URL? { get }
 }

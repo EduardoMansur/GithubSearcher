@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SearchView<ViewModel: SearchViewModelType>: View {
-    
     @State private var viewModel: ViewModel
     
     init(viewModel: ViewModel) {
@@ -20,13 +19,18 @@ struct SearchView<ViewModel: SearchViewModelType>: View {
             SearchResultCell(viewModel: SearchResultCellViewModel(githubItem: item))
         }
         .searchable(text: $viewModel.searchText)
-        .onChange(of: viewModel.searchText) { _, newValue in
-            viewModel.search(text: newValue)
+        .task(id: viewModel.searchText) {
+            do {
+                try await Task.sleep(for: .seconds(0.5))
+                try await viewModel.search(text: viewModel.searchText)
+            } catch {
+                print("error on search \(error.localizedDescription)")
+            }
         }
         .padding()
     }
 }
 
 #Preview {
-    SearchView(viewModel: SearchViewModel())
+    SearchView(viewModel: SearchViewModel(repository: SearchResultRepository()))
 }

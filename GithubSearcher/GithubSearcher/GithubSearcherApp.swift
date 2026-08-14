@@ -12,7 +12,7 @@ struct GithubSearcherApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                SearchView(viewModel: SearchViewModel())
+                SearchView(viewModel: SearchViewModel(repository: SearchResultRepository()))
             }
         }
     }

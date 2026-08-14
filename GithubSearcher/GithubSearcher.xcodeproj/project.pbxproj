@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2DA29122302F4E6A0068DAAB /* NetworkLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 2DA29121302F4E6A0068DAAB /* NetworkLayer */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		2DA290E3302F37660068DAAB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DA29122302F4E6A0068DAAB /* NetworkLayer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = GithubSearcher;
 			packageProductDependencies = (
+				2DA29121302F4E6A0068DAAB /* NetworkLayer */,
 			);
 			productName = GithubSearcher;
 			productReference = 2DA290D5302F37640068DAAB /* GithubSearcher.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 2DA290CC302F37640068DAAB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2DA29120302F4E6A0068DAAB /* XCLocalSwiftPackageReference "../NetworkLayer" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2DA290D6302F37640068DAAB /* Products */;
 			projectDirPath = "";
@@ -615,6 +624,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		2DA29120302F4E6A0068DAAB /* XCLocalSwiftPackageReference "../NetworkLayer" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../NetworkLayer;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2DA29121302F4E6A0068DAAB /* NetworkLayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkLayer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2DA290CD302F37640068DAAB /* Project object */;
 }
