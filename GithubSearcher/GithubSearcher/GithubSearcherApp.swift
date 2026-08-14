@@ -11,7 +11,9 @@ import SwiftUI
 struct GithubSearcherApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                SearchView(viewModel: SearchViewModel(repository: SearchResultRepository()))
+            }
         }
     }
 }
