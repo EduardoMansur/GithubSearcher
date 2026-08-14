@@ -10,17 +10,18 @@ import Observation
 protocol SearchViewModelType: Observable {
     var searchText: String { get set }
     var searchItems: [GithubSearchItem] { get set }
+    var state: SearchViewState { get }
     
-    func search(text: String) async throws 
-    
+    func search(text: String) async
 }
-
 
 @Observable
 @MainActor
 final class SearchViewModel: SearchViewModelType {
     var searchText: String
     var searchItems: [GithubSearchItem] = []
+    
+    var state: SearchViewState
     
     @ObservationIgnored
     private let repository: RepositorySearching
@@ -29,10 +30,31 @@ final class SearchViewModel: SearchViewModelType {
         self.searchText = searchText
         self.searchItems = initialSearchItems
         self.repository = repository
+        self.state = .initial
     }
     
-    func search(text: String) async throws {
-        guard !text.isEmpty else { return }
-        searchItems = try await repository.searchRepositories(language: text).items
+    func search(text: String) async {
+        guard !text.isEmpty else {
+            searchItems = []
+            state = .initial
+            return
+        }
+        state = .loading
+        
+        do {
+            searchItems = try await repository.searchRepositories(language: text).items
+            state = searchItems.isEmpty ? .noResults : .loaded
+        } catch {
+            state = .error(error)
+            searchItems = []
+        }
     }
+}
+
+enum SearchViewState {
+    case initial
+    case loading
+    case loaded
+    case error(Error)
+    case noResults
 }

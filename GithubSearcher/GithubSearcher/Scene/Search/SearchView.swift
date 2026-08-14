@@ -14,20 +14,60 @@ struct SearchView<ViewModel: SearchViewModelType>: View {
         self._viewModel = State(wrappedValue: viewModel)
         
     }
+    
     var body: some View {
-        List(viewModel.searchItems) { item in
-            SearchResultCell(viewModel: SearchResultCellViewModel(githubItem: item))
-        }
+        loadedList()
         .searchable(text: $viewModel.searchText)
         .task(id: viewModel.searchText) {
             do {
                 try await Task.sleep(for: .seconds(0.5))
-                try await viewModel.search(text: viewModel.searchText)
+                await viewModel.search(text: viewModel.searchText)
             } catch {
-                print("error on search \(error.localizedDescription)")
+                print("The task was canceled.")
             }
         }
-        .padding()
+    }
+    
+    @ViewBuilder
+    func loadedList() -> some View {
+        List {
+            switch viewModel.state {
+            case .initial:
+                welcomeMessage()
+            case .error(let error):
+                errorMessage(error: error)
+            case .loading:
+                loadingMessage()
+            case .noResults:
+                noResultMessage()
+            case .loaded:
+                ForEach(viewModel.searchItems) { item in
+                    SearchResultCell(viewModel: SearchResultCellViewModel(githubItem: item))
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func welcomeMessage() -> some View {
+        Text("Welcome, please search for a keyword")
+    }
+    
+    @ViewBuilder
+    func errorMessage(error: Error) -> some View {
+        Text(error.localizedDescription)
+    }
+
+    @ViewBuilder
+    func loadingMessage() -> some View {
+        VStack(alignment: .center){
+            ProgressView()
+        }
+    }
+    
+    @ViewBuilder
+    func noResultMessage() -> some View {
+        Text("No result")
     }
 }
 
