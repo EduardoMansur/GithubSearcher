@@ -25,6 +25,7 @@ final class SearchViewModel: SearchViewModelType {
     
     @ObservationIgnored
     private let repository: RepositorySearching
+    private var lastCompletedSearch: String?
     
     init(searchText: String = "", initialSearchItems: [GithubSearchItem] = [], repository: RepositorySearching) {
         self.searchText = searchText
@@ -34,19 +35,25 @@ final class SearchViewModel: SearchViewModelType {
     }
     
     func search(text: String) async {
+        guard lastCompletedSearch != text else {
+            return
+        }
+        
+        searchItems = []
+        
         guard !text.isEmpty else {
-            searchItems = []
             state = .initial
             return
         }
+  
         state = .loading
         
         do {
             searchItems = try await repository.searchRepositories(language: text).items
             state = searchItems.isEmpty ? .noResults : .loaded
+            lastCompletedSearch = text
         } catch {
             state = .error(error)
-            searchItems = []
         }
     }
 }

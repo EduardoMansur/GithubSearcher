@@ -62,9 +62,7 @@ struct SearchView<ViewModel: SearchViewModelType>: View {
 
     @ViewBuilder
     func loadingMessage() -> some View {
-        VStack(alignment: .center){
-            ProgressView()
-        }
+        ProgressView().id(UUID())
     }
     
     @ViewBuilder
